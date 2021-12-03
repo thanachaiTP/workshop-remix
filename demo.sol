@@ -2529,13 +2529,13 @@ pragma solidity 0.8.4;
 
 
 
-contract DOME is ERC20Burnable, AccessControlEnumerable, ERC20Permit, ERC20Votes
+contract DEMO is ERC20Burnable, AccessControlEnumerable, ERC20Permit, ERC20Votes
 {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     
     receive() external payable {}
 
-    constructor() ERC20("Dome Coin", "DOME") ERC20Permit("DOME")
+    constructor() ERC20("Demo Coin", "DEMO") ERC20Permit("DEMO")
     {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(MINTER_ROLE, msg.sender);
