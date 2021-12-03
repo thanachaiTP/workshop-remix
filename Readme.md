@@ -32,15 +32,21 @@ copy source code จากไฟล์ dome.sol ไปวางในกล่�
 ![deploy-05.1-code](pic/05.1-code.png)
 ![deploy-05.2-new-smart-contact-verify](pic/05.2-new-smart-contact-verify.png)
 
-Contract Name : DEMO
-Include nightly builds : No
-Compiler : v0.8.4+commit.c7e474f2
-EVM Version : default
-Optimization : No
-Enter the Solidity Contract Code : copy code จากไฟล์ demo.sol มาวาง
-Try to fetch constructor arguments automatically : Yes
+> Contract Name : DEMO
 
-กด Verify & publish
+> Include nightly builds : No
+
+> Compiler : v0.8.4+commit.c7e474f2
+
+> EVM Version : default
+
+> Optimization : No
+
+> Enter the Solidity Contract Code : copy code จากไฟล์ demo.sol มาวาง
+
+> Try to fetch constructor arguments automatically : Yes
+
+> กด Verify & publish
 ![deploy-05.3-verify](pic/05.3-verify.png)
 
 
