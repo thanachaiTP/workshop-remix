@@ -26,7 +26,8 @@ copy source code จากไฟล์ dome.sol ไปวางในกล่�
 
 ## 5. Blockscout
 ไปที่หน้า blockscout ในตัวอย่าง http://139.59.126.43:4000/ กดเลือกที่ address ของ contact ที่ create ไปเมื่อสักครู่ กด เมนู code --> verify & Publish
-![deploy-05-select-contact.png](pic/05-select-contact.png.png)
+
+![deploy-05-select-contact](pic/05-select-contact.png)
 
 หน้า New Smart Contract Verification เลือก  Verification via Flattened source code และกด Next
 ![deploy-05.1-code](pic/05.1-code.png)
