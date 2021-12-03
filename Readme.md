@@ -56,4 +56,26 @@ copy source code จากไฟล์ dome.sol ไปวางในกล่�
 
 
 
+## 6. Mint เหรียญ
+เลือก เมนู Write Contact
+![deploy-06-write-contact](pic/06-write-contact.png)
+
+เลือกที่ข้อ 10 mint 
+- receiver (address) คือกระเป๋าที่จะ mint เหรียญ DEMO ไปให้
+- amount(uint256) คือ จำนวนเหรียญ ตัวอย่าง ต้องการ 1 เหรียญจะเท่ากับ 1000000000000000000 
+กด Write
+![deploy-06-write-contact](pic/06-write-contact.png)
+![deploy-06.1-write-contact](pic/06.1-write-contact.png)
+![deploy-06.2-write-contact](pic/06.2-write-contact.png)
+![deploy-06.3-write-contact](pic/06.3-write-contact.png)
+![deploy-06.4-write-contact](pic/06.4-write-contact.png)
+![deploy-06.3-write-contact](pic/06.3-write-contact.png)
+
+
+
+## 7 Add Token Metamask
+copy address ของ DEMO ไปเพิ่มที่ Metamask
+![deploy-06.5-token](pic/06.5-token.png)
+![deploy-06.6-token](pic/06.6-token.png)
+![deploy-06.7-token](pic/06.7-token.png)
 
