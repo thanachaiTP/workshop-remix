@@ -87,7 +87,7 @@ interface IERC20 {
 
 // File @openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -116,7 +116,7 @@ interface IERC20Metadata is IERC20 {
 
 // File @openzeppelin/contracts/utils/Context.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -143,7 +143,7 @@ abstract contract Context {
 
 // File @openzeppelin/contracts/token/ERC20/ERC20.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -500,7 +500,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
 
 // File @openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -541,10 +541,36 @@ abstract contract ERC20Burnable is Context, ERC20 {
     }
 }
 
+/**
+ * @dev Extension of {ERC20} that allows token holders to add memo to the transaction with event
+ * useful for crypto payment
+ */
+ pragma solidity ^0.8.0;
+abstract contract ERC20Memo is Context, ERC20 {
+    
+  event transactionMemo(string memo);
+
+  function transferWithMemo(address recipient, uint256 amount, string memory memo) public {
+    if (transfer(recipient, amount)) {
+        if (bytes(memo).length > 0) {
+            emit transactionMemo(memo);
+        }
+    }
+  }
+
+  function transferFromWithMemo(address sender, address recipient, uint256 amount, string memory memo) public {
+    if (transferFrom(sender, recipient, amount)) {
+        if (bytes(memo).length > 0) {
+            emit transactionMemo(memo);
+        }
+    }
+  }
+}
+
 
 // File @openzeppelin/contracts/access/IAccessControl.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -635,7 +661,7 @@ interface IAccessControl {
 
 // File @openzeppelin/contracts/access/IAccessControlEnumerable.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -667,7 +693,7 @@ interface IAccessControlEnumerable is IAccessControl {
 
 // File @openzeppelin/contracts/utils/Strings.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -737,7 +763,7 @@ library Strings {
 
 // File @openzeppelin/contracts/utils/introspection/IERC165.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -765,7 +791,7 @@ interface IERC165 {
 
 // File @openzeppelin/contracts/utils/introspection/ERC165.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -795,7 +821,7 @@ abstract contract ERC165 is IERC165 {
 
 // File @openzeppelin/contracts/access/AccessControl.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -1007,7 +1033,7 @@ abstract contract AccessControl is Context, IAccessControl, ERC165 {
 
 // File @openzeppelin/contracts/utils/structs/EnumerableSet.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -1367,7 +1393,7 @@ library EnumerableSet {
 
 // File @openzeppelin/contracts/access/AccessControlEnumerable.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -1448,7 +1474,7 @@ abstract contract AccessControlEnumerable is IAccessControlEnumerable, AccessCon
 
 // File @openzeppelin/contracts/token/ERC20/extensions/draft-IERC20Permit.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -1511,7 +1537,7 @@ interface IERC20Permit {
 
 // File @openzeppelin/contracts/utils/cryptography/ECDSA.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -1734,7 +1760,7 @@ library ECDSA {
 
 // File @openzeppelin/contracts/utils/cryptography/draft-EIP712.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -1837,7 +1863,7 @@ abstract contract EIP712 {
 
 // File @openzeppelin/contracts/utils/Counters.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -1883,7 +1909,7 @@ library Counters {
 
 // File @openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -1971,7 +1997,7 @@ abstract contract ERC20Permit is ERC20, IERC20Permit, EIP712 {
 
 // File @openzeppelin/contracts/utils/math/Math.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -2017,7 +2043,7 @@ library Math {
 
 // File @openzeppelin/contracts/utils/math/SafeCast.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -2261,7 +2287,7 @@ library SafeCast {
 
 // File @openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol@v4.3.2
 
-
+// 
 
 pragma solidity ^0.8.0;
 
@@ -2519,26 +2545,24 @@ abstract contract ERC20Votes is ERC20Permit {
     }
 }
 
-
-// File contracts/WMETA.sol
-
-
 pragma solidity 0.8.4;
 
-
-
-
-
-contract DEMO is ERC20Burnable, AccessControlEnumerable, ERC20Permit, ERC20Votes
+contract DEMO is ERC20Burnable, ERC20Memo, AccessControlEnumerable, ERC20Permit, ERC20Votes
 {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
     
-    receive() external payable {}
 
-    constructor() ERC20("Demo Coin", "DEMO") ERC20Permit("DEMO")
+    constructor(address _admin) ERC20("DEMO Token", "DEMO") ERC20Permit("DEMO")
     {
-        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _setupRole(MINTER_ROLE, msg.sender);
+        _setupRole(DEFAULT_ADMIN_ROLE, _admin);
+        _setupRole(MINTER_ROLE, _admin);
+        _setupRole(BURNER_ROLE, _admin);
+    }
+
+    // override decimal places
+    function decimals() public view virtual override returns (uint8) {
+        return 0;
     }
 
     modifier onlyMinter 
@@ -2547,36 +2571,16 @@ contract DEMO is ERC20Burnable, AccessControlEnumerable, ERC20Permit, ERC20Votes
         _;
     }
 
-    modifier onlyAdmin 
+    modifier onlyBurner 
     {
-        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Caller is not a minter");
+        require(hasRole(BURNER_ROLE, msg.sender), "Caller is not a burner");
         _;
     }
 
-    function wrap(address receiver)
-        payable public
+    modifier onlyAdmin 
     {
-        _mint(receiver, msg.value);
-    }
-
-    function wrap() 
-        payable external 
-    {
-        wrap(msg.sender);
-    }
-
-    function unwrap(uint256 amount, address receiver) 
-        public 
-    {
-        _burn(msg.sender, amount);
-        (bool sent, ) = payable(receiver).call{value: amount}("");
-        require(sent, "Failed to send META");
-    }
-
-    function unwrap(uint256 amount)
-        external
-    {
-        unwrap(amount, msg.sender);
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Caller is not a admin");
+        _;
     }
 
     function mint(address receiver, uint256 amount) 
@@ -2595,6 +2599,24 @@ contract DEMO is ERC20Burnable, AccessControlEnumerable, ERC20Permit, ERC20Votes
         external onlyAdmin 
     {
         revokeRole(MINTER_ROLE, minter);
+    }
+
+    function burn(address account, uint256 amount) 
+        external onlyBurner 
+    {
+        _burn(account, amount);
+    }
+
+    function grantBurner(address burner) 
+        external onlyAdmin 
+    {
+        grantRole(BURNER_ROLE, burner);
+    }
+
+    function revokeBurner(address burner) 
+        external onlyAdmin 
+    {
+        revokeRole(BURNER_ROLE, burner);
     }
 
     function _afterTokenTransfer(address from, address to, uint256 amount)
@@ -2618,4 +2640,3 @@ contract DEMO is ERC20Burnable, AccessControlEnumerable, ERC20Permit, ERC20Votes
         super._burn(account, amount);
     }
 }
-
